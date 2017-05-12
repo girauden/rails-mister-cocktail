@@ -4,16 +4,6 @@ Dose.destroy_all
 Ingredient.destroy_all
 Cocktail.destroy_all
 
-def id_recup_ingredient(ingredient)
-    ingredient = Ingredient.find_by(name: ingredient)
-    ingredient.id
-end
-
-def id_recup_cocktail(cocktail)
-    cocktail = Cocktail.find_by(name: cocktail)
-    cocktail.id
-end
-
 results = JSON.parse(open("http://www.thecocktaildb.com/api/json/v1/1/list.php?i=list").read)
 results["drinks"].each {|ingredient| Ingredient.create!(name: ingredient.values.first)}
 puts "ingredients created"
@@ -52,6 +42,15 @@ doses = [
   {description: "2 cl", cocktail_id: tequila_id ,ingredient_id: syrup_id}
 ]
 
+  def id_recup_ingredient(ingredient)
+      ingredient = Ingredient.find_by(name: ingredient)
+      ingredient.id
+  end
+
+  def id_recup_cocktail(cocktail)
+      cocktail = Cocktail.find_by(name: cocktail)
+      cocktail.id
+  end
 Dose.create!(doses)
 
 puts "dose created"
